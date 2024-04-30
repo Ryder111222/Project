@@ -1,0 +1,51 @@
+{% extends "new_admin/layout.html" %}
+
+
+
+
+{% block content %}
+    <div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>User List</h1>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <table class="table table-hover" style="font-size: 15px;">
+                <thead>
+                <tr>
+                    <th class="text-center">用户名</th>
+                    <th class="text-center">电话</th>
+                    <th class="text-center">Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for v in page_data.items %}
+                    <tr style="padding:5px;">
+                        <td height="20" align="center">{{ v.username }}</td>
+                        <td align="center">{{ v.phone }}</td>
+                        <td align="center">{{ v.email }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if page_data %}
+              <tbody>
+                <tr>
+                  <td height="30" align="right">当前页数：[{{page_data.page}}/{{page_data.pages}}]&nbsp;
+                    <a href="{{ url_for('admin.user_list',page=1) }}">第一页</a>
+                    {% if page_data.has_prev %}
+                      <a href="{{ url_for('admin.user_list',page=page_data.prev_num) }}">上一页</a>
+                    {% endif %}
+                    {% if page_data.has_next %}
+                　     <a href="{{ url_for('admin.user_list',page=page_data.next_num) }}">下一页</a>
+                    {% endif %}　
+                    <a href="{{ url_for('admin.user_list',page=page_data.pages) }}">最后一页&nbsp;</a>
+                  </td>
+                </tr>
+              </tbody>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

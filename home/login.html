@@ -1,0 +1,72 @@
+{% extends "home/layout.html" %}
+
+{% block js %}
+    <style>
+    .error{
+        color: red;
+    }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+    <div style="margin-top: 50px" class="breadcrumb-tow mb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-title">
+                        <h1>Login</h1>
+                    </div>
+                    <div class="breadcrumb-content breadcrumb-content-tow">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li class="active">Login</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-register-area mb-80">
+        <div class="container">
+            <div class="row">
+                <!--Login Form Start-->
+
+                <div class=" col-md-6 col-sm-6" style="margin:auto">
+                    <div class="customer-login-register">
+                        <div class="form-login-title">
+                            <h2>Login</h2>
+                        </div>
+                        <div class="login-form">
+                            <form action="" method="post">
+                                <div class="form-fild">
+                                    <p><label>Username or email address <span class="required">*</span></label></p>
+                                    <input name="username" value="" type="text" autocomplete="off">
+                                    <span class="error">{{ data['username_err'] }}</span>
+                                </div>
+                                <div class="form-fild">
+                                    <p><label>Password <span class="required">*</span></label></p>
+                                    <input name="password" value="" type="password">
+                                    <span class="error">{{ data['password_err'] }}</span>
+                                    <span class="error">{{ data['all_error'] }}</span>
+                                </div>
+                                <div class="login-submit">
+                                    <button type="submit" class="form-button">Login</button>
+                                </div>
+                                <div class="lost-password">
+                                    <a href="{{ url_for('home.register') }}">Don't have an account? Go and register!</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+

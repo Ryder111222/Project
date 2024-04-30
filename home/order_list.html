@@ -1,0 +1,89 @@
+{% extends "home/layout.html" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+    <div style="margin-top: 50px;" class="breadcrumb-tow mb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-title">
+                        <h1>Orderlist</h1>
+                    </div>
+                    <div class="breadcrumb-content breadcrumb-content-tow">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li class="active">Orderlist</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wishlist-area mb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="cart-product-name">oid</th>
+                                <th class="plantmore-product-thumbnail">images</th>
+                                <th class="cart-product-name">Product</th>
+                                <th class="cart-product-name">number</th>
+                                <th class="plantmore-product-price">Unit Price</th>
+                                <th class="plantmore-product-price">Total</th>
+                                <th class="plantmore-product-price">Name</th>
+                                <th class="plantmore-product-price">Phone</th>
+                                <th class="plantmore-product-price">Time</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in orders %}
+                                <tr>
+                                    <td class="plantmore-product-name">{{ item.orders.id }}</td>
+                                    <td class="plantmore-product-thumbnail">
+                                        <a href="{{ url_for('home.goods_detail',id=item.goods.id) }}">
+                                            <img style="width: 90px;height: 90px"
+                                                 src="{{ url_for('static',filename='images/goods/'+item.goods.picture) }}"
+                                                 alt="">
+                                        </a>
+                                    </td>
+                                    <td class="plantmore-product-name"><a
+                                            href="{{ url_for('home.goods_detail',id=item.goods.id) }}">{{ item.goods.name }}</a>
+                                    </td>
+                                    <td class="plantmore-product-name">{{ item.number }}</td>
+                                    <td class="plantmore-product-price"><span
+                                            class="amount">${{ item.goods.current_price }}</span></td>
+                                    <td class="plantmore-product-price"><span
+                                            class="amount">${{ item.number*item.goods.current_price }}</span></td>
+                                    <td class="plantmore-product-price"><span
+                                            class="amount">{{ item.orders.recevie_name }}</span></td>
+                                    <td class="plantmore-product-price"><span
+                                            class="amount">{{ item.orders.recevie_tel }}</span></td>
+                                    <td class="plantmore-product-name">{{ item.orders.addtime }}</td>
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="coupon-all">
+                            <div class="coupon">
+                                <input class="button" name="apply_coupon" value="Back Shop" type="button"
+                                       onclick="history.back(-1);">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

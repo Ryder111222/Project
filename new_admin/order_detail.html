@@ -1,0 +1,47 @@
+{% extends "new_admin/layout.html" %}
+
+
+
+
+{% block content %}
+    <div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>Order Detail</h1>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <table class="table table-hover" style="font-size: 15px;">
+                <thead>
+                <tr>
+                    <th class="text-center">商品名称</th>
+                    <th class="text-center">原价</th>
+                    <th class="text-center">现价</th>
+                    <th class="text-center">数量</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in data %}
+                    <tr align="center">
+                        <td height="27">
+                            <a href="{{ url_for('admin.goods_detail',goods_id=item.goods.id) }}">
+                                {{ item.goods.name }}
+                            </a>
+                        </td>
+                        <td>{{ item.goods.original_price }}(元)</td>
+                        <td>{{ item.goods.current_price }}(元)</td>
+                        <td>{{ item.number }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <table width="100%" height="49" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center"><input name="Submit" type="submit" class="btn btn-success" value="返回"
+                                                  onClick="history.back(-1)"></td>
+                    </tr>
+                </table>
+            </table>
+        </div>
+    </div>
+{% endblock %}

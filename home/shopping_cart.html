@@ -1,0 +1,258 @@
+{% extends "home/layout.html" %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+    <div style="margin-top: 50px;" class="breadcrumb-tow mb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-title">
+                        <h1>Shopping Cart</h1>
+                    </div>
+                    <div class="breadcrumb-content breadcrumb-content-tow">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li class="active">Shopping Cart</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="Shopping-cart-area mb-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="plantmore-product-thumbnail">images</th>
+                                <th class="cart-product-name">Product</th>
+                                <th class="plantmore-product-price">Unit Price</th>
+                                <th class="plantmore-product-quantity">Quantity</th>
+                                <th class="plantmore-product-subtotal">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in cart %}
+                                <tr>
+
+                                    <td class="plantmore-product-thumbnail">
+                                        <a href="{{ url_for('home.goods_detail',id=item.goods.id) }}">
+                                            <img style="width: 90px;height: 90px"
+                                                 src="{{ url_for('static',filename='images/goods/'+item.goods.picture) }}"
+                                                 alt="">
+                                        </a></td>
+                                    <td class="plantmore-product-name">
+                                        <a href="{{ url_for('home.goods_detail',id=item.goods.id) }}">
+                                            {{ item.goods.name }}
+                                        </a>
+                                    </td>
+                                    <td class="plantmore-product-price"><span
+                                            class="amount">${{ item.goods.current_price }}</span></td>
+                                    <td class="plantmore-product-quantity">
+                                        <font style="font-size: 20px">{{ item.number }}</font>
+                                    </td>
+                                    <td class="product-subtotal total"
+                                        value="{{ item.goods.current_price * item.number }}">
+                                        <span class="amount">${{ item.goods.current_price * item.number }}</span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="coupon-all">
+                                <div class="coupon">
+                                    <input class="button" name="apply_coupon" value="Back Shop" type="button"
+                                           onclick="history.back(-1);">
+
+                                </div>
+                                <div class="coupon2">
+                                    <a href="/cart_clear/">
+                                        <input class="button" value="Empty cart" type="button">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="checkout-area mb-80">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-6 col-12">
+                    <form action="{{ url_for('home.cart_order') }}" method="post" id="myform">
+                        <div class="checkbox-form">
+                            <h3>Shipping details</h3>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Name <span class="required">*</span></label>
+                                        <input placeholder="" type="text" id="recevieName" name="recevie_name"
+                                               size="10">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Phone <span class="required">*</span></label>
+                                        <input placeholder="" type="text" id="tel" name="recevie_tel" size="10">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Harvest address<span class="required">*</span></label>
+                                        <input placeholder="" type="text" id="address" name="recevie_address"
+                                               size="1">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label>Remark</label>
+                                        <input placeholder="" type="text" name="remark" size="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="your-order">
+                        <h3>Your order</h3>
+                        <div class="your-order-table table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="cart-product-total">Total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in cart %}
+                                    <tr class="cart_item">
+                                        <td class="cart-product-name"> {{ item.goods.name }}<strong
+                                                class="product-quantity">
+                                            × {{ item.number }}</strong></td>
+                                        <td class="cart-product-total"><span
+                                                class="amount">${{ item.goods.current_price * item.number }}</span></td>
+                                    </tr>
+                                {% endfor %}
+
+                                <tr class="order-total">
+                                    <th>Order Total</th>
+                                    <td><strong><span class="amount"><span id="total_price"></span></span></strong></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="payment-method">
+                            <div class="payment-accordion">
+                                <div class="order-button-payment">
+                                    <input value="Place order" type="button" id="btnAdd">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i
+                            class="fa fa-close"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tab-content product-details-large" id="myTabContent">
+                                <div class="tab-pane fade show active" id="single-slide1" role="tabpanel"
+                                     aria-labelledby="single-slide-tab-1">
+
+                                    <div class="single-product-img img-full">
+                                        <img src="/static/images/pay/pay.jpg" alt="">
+                                    </div>
+                                    <div class="add-to-link text-center" style="margin-top:-50px;margin-bottom: 50px">
+                                        <button class="form-button" id="payAdd" data-text="add to cart">pay
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            bindBtnAddEvent();
+            payBtnAddEvent();
+            priceEvent();
+        })
+
+        function priceEvent() {
+            $(document).ready(function () {
+                var total_price = 0
+                $('.total').each(function () {
+                    total_price += parseFloat($(this).attr('value'))
+                })
+                $('#total_price').text(total_price + "元")
+            });
+        }
+
+        function bindBtnAddEvent() {
+            $("#btnAdd").click(function (res) {
+                if ($('#recevieName').val() === "") {
+                    alert('The name of the consignee cannot be blank！');
+                    return;
+                }
+                //Verify the consignee's mobile phone
+                if ($('#tel').val() === "") {
+                    alert('The consigne mobile phone cannot be empty！');
+                    return;
+                }
+                //Verify that the phone number is legitimate
+                if (isNaN($('#tel').val())) {
+                    alert("Please enter the number for mobile phone number");
+                    return;
+                }
+                //Verify the consignee's address
+                if ($('#address').val() === "") {
+                    alert('The consignee address cannot be empty！');
+                    return;
+                }
+                console.log(111)
+                $('#myModal').modal('show');
+            });
+        }
+
+        function payBtnAddEvent() {
+            $('#payAdd').click(function (res) {
+                document.getElementById('myform').submit();
+            })
+        }
+
+
+    </script>
+{% endblock %}

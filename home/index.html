@@ -1,0 +1,241 @@
+{% extends "home/layout.html" %}
+
+
+{% block content %}
+
+    <div class="slider-area mt-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="hero-slider hero-slider-5 owl-carousel">
+                        <div class="single-slider-style-5"
+                             style="background-image: url(static/home/img/slider/home5-slider1.jpg)">
+                            <div class="slider-progress"></div>
+                            <div class="hero-slider-content hero-slider-content-5">
+                                <img class="first-img" src="static/home/img/slider/home5-slider1-text1.png" alt="">
+                                <img class="secound-img" src="static/home/img/slider/home5-slider1-icon.png" alt="">
+                            </div>
+                        </div>
+                        <div class="single-slider-style-5"
+                             style="background-image: url(static/home/img/slider/home5-slider2.jpg)">
+                            <div class="slider-progress"></div>
+                            <div class="hero-slider-content hero-slider-content-6">
+                                <img class="first-img" src="static/home/img/slider/home5-slider2-text.png" alt="">
+                                <img class="secound-img" src="static/home/img/slider/home5-slider2-icon.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <!--Product Offer Area Start-->
+                    <div class="product-offer">
+                        <div class="section-title text-center">
+                            <h3>Deal of The Day</h3>
+                        </div>
+                        <div class="product-offer-active">
+
+                            {% for item in hot_goods %}
+                                <div class="single-product">
+                                    <div class="product-img img-full">
+                                        <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">
+                                            <img src="{{ url_for('static',filename='images/goods/'+item.picture) }}"
+                                                 alt="">
+                                        </a>
+                                        <span class="onsale">Sale!</span>
+
+                                    </div>
+                                    <div class="product-content">
+                                        <h2>
+                                            <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">{{ item.name }}</a>
+                                        </h2>
+                                        <div class="product-price">
+                                            <div class="price-box">
+                                                <span class="regular-price">${{ item.current_price }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="count-down mt-20">
+                                            <div class="pro-countdown1" data-countdown="2023/10/01"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="home-product-layout-area mt-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 order-lg-2 order-1">
+                    <div class="product-layout">
+                        <div class="store-area mt-85">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="section-title text-center">
+                                        <h3>Shop in Store</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="tab-content">
+                                        <div id="new" class="tab-pane fade show active">
+                                            <div class="row">
+                                                <div class="store-slider-active">
+                                                    {% for item in new_goods %}
+                                                        <div class="col-md-3 col-lg-3 col-sm-4 col-xs-12">
+
+                                                            <div class="single-product mb-25">
+                                                                <div class="product-img img-full">
+                                                                    <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">
+                                                                        <img src="{{ url_for('static',filename='images/goods/'+item.picture) }}"
+                                                                             alt="">
+                                                                    </a>
+                                                                    <span class="onsale">Sale!</span>
+                                                                </div>
+                                                                <div class="product-content">
+                                                                    <h2>
+                                                                        <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">{{ item.name }}</a>
+                                                                    </h2>
+                                                                    <div class="product-price">
+                                                                        <div class="price-box">
+                                                                            <span class="regular-price">${{ item.current_price }}</span>
+                                                                        </div>
+                                                                        <div class="add-to-cart">
+                                                                            <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">Add
+                                                                                To Cart</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="best-product mt-100">
+                            <div class="row">
+                                <!--Section Title Start-->
+                                <div class="col-12">
+                                    <div class="section-title text-center mb-35">
+                                        <span>The Best collection</span>
+                                        <h3>Best Products</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="product-list-slider-active2">
+                                    {% for item in sale_goods %}
+                                        <div class="col-md-6">
+                                            <div class="single-product product-list mb-35">
+                                                <div class="list-col-4">
+                                                    <div class="product-img img-full">
+                                                        <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}"><img
+                                                                src="{{ url_for('static',filename='images/goods/'+item.picture) }}"
+                                                                alt=""></a>
+                                                    </div>
+                                                </div>
+                                                <div class="list-col-8">
+                                                    <div class="product-content">
+                                                        <h2><a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">{{ item.name }}</a></h2>
+                                                        <div class="product-price">
+                                                            <div class="price-box">
+                                                                <span class="price">${{ item.original_price }}</span>
+                                                                <span class="regular-price">${{ item.current_price }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="add-to-cart">
+                                                            <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}" tabindex="0">Add To Cart</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="feature-area mt-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <!--Single Feature Start-->
+                    <div class="single-feature mb-35">
+                        <div class="feature-icon">
+                            <span class="lnr lnr-rocket"></span>
+                        </div>
+                        <div class="feature-content">
+                            <h3>FREE SHIPPING</h3>
+                            <p>ALL ORDER OVER $100</p>
+                        </div>
+                    </div>
+                    <!--Single Feature End-->
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <!--Single Feature Start-->
+                    <div class="single-feature mb-35">
+                        <div class="feature-icon">
+                            <span class="lnr lnr-phone"></span>
+                        </div>
+                        <div class="feature-content">
+                            <h3>24/7 DEDICATED SUPPORT</h3>
+                            <p>0123 456 789</p>
+                        </div>
+                    </div>
+                    <!--Single Feature End-->
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <!--Single Feature Start-->
+                    <div class="single-feature mb-35">
+                        <div class="feature-icon">
+                            <span class="lnr lnr-redo"></span>
+                        </div>
+                        <div class="feature-content">
+                            <h3>MONEY BACK</h3>
+                            <p>IF THE ITEM DIDN’T SUIT YOU</p>
+                        </div>
+                    </div>
+                    <!--Single Feature End-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="news-letter-area mt-90 mb-120">
+        <div class="container">
+            <div class="row">
+                <!--Section Title Start-->
+                <div class="col-12">
+                    <div class="section-title text-center mb-35">
+                        <h3>In the end</h3>
+                    </div>
+                </div>
+                <!--Section Title End-->
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="news-latter-box">
+                        <p>You can view different categories of products in detail!</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

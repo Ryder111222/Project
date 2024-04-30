@@ -1,0 +1,126 @@
+{% extends "home/layout.html" %}
+
+{% block css %}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="shop-area mb-70" style="margin-top: 50px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 order-2 order-lg-1">
+                    <div class="shop-sidebar">
+                        <h4>Search results</h4>
+                    </div>
+                    <div class="shop-sidebar">
+                        <h4>Popular items</h4>
+                        <div class="rc-product">
+                            <ul>
+                                {% for item in hot_goods %}
+                                    <li>
+                                        <div class="rc-product-thumb img-full">
+                                            <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}"><img
+                                                    src="{{ url_for('static',filename='images/goods/'+item.picture) }}"
+                                                    alt=""></a>
+                                        </div>
+                                        <div class="rc-product-content">
+                                            <h6>
+                                                <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">{{ item.name }}</a>
+                                            </h6>
+                                            <div class="rc-product-review">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </div>
+                                            <div class="rc-product-price">
+                                                <span class="price">${{ item.current_price }}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="margin-top: 150px;" class="col-lg-9 order-1 order-lg-2">
+                    <div class="shop-layout">
+                        <div class="shop-product">
+
+                            <div id="myTabContent-2" class="tab-content">
+                                <div id="grid" class="tab-pane fade show active">
+                                    <div class="product-grid-view">
+                                        <div class="row">
+                                            {% if page_data.items %}
+                                                {% for item in page_data.items %}
+                                                    <div class="col-md-4">
+                                                        <div class="single-product mb-25">
+                                                            <div class="product-img img-full">
+                                                                <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">
+                                                                    <img src="{{ url_for('static',filename='images/goods/'+item.picture) }}"
+                                                                         alt="">
+                                                                </a>
+                                                                <span class="onsale">Sale!</span>
+                                                            </div>
+                                                            <div class="product-content">
+                                                                <h2>
+                                                                    <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">
+                                                                        {{ item.name }}
+                                                                    </a></h2>
+                                                                <div class="product-price">
+                                                                    <div class="price-box">
+                                                                        <span class="regular-price">${{ item.current_price }}</span>
+                                                                    </div>
+                                                                    <div class="add-to-cart">
+                                                                        <a href="/goods_detail/{{ item.id }}?type={{ item.supercat_id }}">Add
+                                                                            To Cart</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            {% else %}
+                                                <div class="container text-center">
+                                                    <h1 style="margin-top: 100px;color: red">I didn't find the product I
+                                                        was looking for!</h1>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if page_data.items %}
+                                    <div>
+                                        <div class="row pagination">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                <tr>
+                                                    <td height="30" align="right">当前页数：[1/2]&nbsp;
+                                                        <a href="/goods_list/15/?page=1">第一页</a>
+
+
+                                                        　
+                                                        <a href="/goods_list/15/?page=2">下一页</a>
+                                                        　
+                                                        <a href="/goods_list/15/?page=2">最后一页&nbsp;</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "home/layout.html" %}
+
+{% block js %}
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+    <div style="margin-top: 50px" class="breadcrumb-tow mb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-title">
+                        <h1>Login</h1>
+                    </div>
+                    <div class="breadcrumb-content breadcrumb-content-tow">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li class="active">Login</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-register-area mb-80">
+        <div class="container">
+            <div class="row">
+                <!--Login Form Start-->
+
+                <div class="col-md-6 col-sm-6" style="margin:auto;margin-top: -100px">
+                    <div class="customer-login-register register-pt-0">
+                        <div class="form-register-title">
+                            <h2>Register</h2>
+                        </div>
+                        <div class="register-form">
+                            <form action="" method="post">
+                                <div class="form-fild">
+                                    <p><label>Username <span class="required">*</span></label></p>
+                                    <input name="username" value="{{ data['username'] }}" type="text">
+                                    <span class="error">{{ data['username_err'] }}</span>
+                                </div>
+                                <div class="form-fild">
+                                    <p><label>Email address <span class="required">*</span></label></p>
+                                    <input name="email" value="{{ data['email'] }}" type="text">
+                                    <span class="error">{{ data['email_err'] }}</span>
+                                </div>
+                                <div class="form-fild">
+                                    <p><label>Phone <span class="required">*</span></label></p>
+                                    <input name="phone" value="{{ data['phone'] }}" type="text">
+                                    <span class="error">{{ data['phone_err'] }}</span>
+                                </div>
+                                <div class="form-fild">
+                                    <p><label>Password <span class="required">*</span></label></p>
+                                    <input name="password" value="{{ data['password'] }}" type="password">
+                                    <span class="error">{{ data['password_err'] }}</span>
+                                </div>
+                                <div class="form-fild">
+                                    <p><label>Password <span class="required">*</span></label></p>
+                                    <input name="two_password" value="{{ data['two_password'] }}" type="password">
+                                    <span class="error">{{ data['two_password_err'] }}</span>
+                                    <span class="error">{{ data['all_error'] }}</span>
+                                </div>
+                                <div class="register-submit">
+                                    <button type="submit" class="form-button">Register</button>
+                                </div>
+                                <div class="lost-password">
+                                    <a href="{{ url_for('home.login') }}">You already have an account, go back to login</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+

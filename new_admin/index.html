@@ -1,0 +1,83 @@
+{% extends "new_admin/layout.html" %}
+
+
+
+
+{% block content %}
+    <div>
+        <div class="row">
+            <div class="col-lg-18 text-center">
+                <h1>Warehouse</h1>
+            </div>
+            <div class="col-lg-9 text-right">
+                <div style="margin-top: 20px;">
+                    <form method="get" action="" class="navbar-form ">
+                        <div class="form-group">
+                            <input type="text" name="good_name" class="form-control" placeholder="goods name">
+                        </div>
+                        <button type="submit" class="btn btn-default">Search</button>
+                        <a href="{{ url_for('admin.goods_add') }}">
+                            <button type="button" class="btn btn-success" >
+                                Add
+                            </button>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <table class="table table-hover" style="font-size: 15px;">
+                <thead>
+                <tr>
+                    <th>good name</th>
+                    <th>old price</th>
+                    <th>new price</th>
+                    <th>whether new</th>
+                    <th>discount?</th>
+                    <th>operate</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for v in page_data.items %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('admin.goods_detail',goods_id=v.id) }}">{{ v.name }}</a>
+                        </td>
+                        <td>{{ v.original_price }}￥</td>
+                        <td>{{ v.current_price }}￥</td>
+                        <td>{% if v.is_new %} yes {% else %} no {% endif %}</td>
+                        <td>{% if v.is_sale %} yes {% else %} no {% endif %}</td>
+                        <td>
+                            <a href="{{ url_for('admin.goods_edit',id=v.id) }}">
+                                <button type="button" class="btn btn-warning btn-sm">edit</button>
+                            </a>
+                            <a href="{{ url_for('admin.goods_del_confirm',goods_id=v.id) }}">
+                                <button type="button" class="btn btn-danger btn-sm">
+                                    delete
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if page_data %}
+                <tbody>
+                <tr>
+                    <td height="30" align="right">now page：[{{ page_data.page }}/{{ page_data.pages }}]&nbsp;
+                        <a href="{{ url_for('admin.index',page=1) }}">First page</a>
+                        {% if page_data.has_prev %}
+                            <a href="{{ url_for('admin.index',page=page_data.prev_num) }}">Last page</a>
+                        {% endif %}
+                        {% if page_data.has_next %}
+                            　     <a href="{{ url_for('admin.index',page=page_data.next_num) }}">Nest page</a>
+                        {% endif %}　
+                        <a href="{{ url_for('admin.index',page=page_data.pages) }}">final page&nbsp;</a>
+                    </td>
+                </tr>
+                </tbody>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

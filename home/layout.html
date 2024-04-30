@@ -1,0 +1,431 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shop</title>
+    <meta name="description" content="">
+    <meta name="robots" content="noindex, follow"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, follow"/>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/static/home/img/favicon.ico">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    {#    <link rel="stylesheet" href="{{ url_for('static',filename='home/xcss/bootstrap.min.css') }}" type="text/css">#}
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/linearicons.min.css') }}" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    {#    <link rel="stylesheet" href="{{ url_for('static',filename='home/xcss/font-awesome.min.css') }}" type="text/css">#}
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/animate.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/owl.carousel.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/slick.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/meanmenu.min.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/easyzoom.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/venobox.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/jquery-ui.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/nice-select.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='home/css/responsive.css') }}" type="text/css">
+    <script type="text/javascript"
+            src="{{ url_for('static',filename='home/js/vendor/modernizr-2.8.3.min.js') }}"></script>
+</head>
+<body>
+
+
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div class="wrapper">
+    <!--Header Area Start-->
+    <header>
+        <div class="header-container">
+            <!--Header Top Area Start-->
+            <div class="header-top-area black-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-5">
+                            <!--Header Top Left Start-->
+                            <div class="header-top-left">
+                                <div class="header-top-language-currency">
+                                    <div class="switcher">
+                                        <div class="language">
+                                            <a href="{{ url_for('admin.login') }}">
+                                                <span class="switcher-title" style="color:white;">
+                                                    Admin Loing
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-7">
+                            {% if "user_id" in session %}
+                                <div class="header-top-right">
+                                    <ul class="menu-top-menu text-md-right">
+                                        <li><a href="">Welcome {{ session['username'] }}</a></li>
+                                        <li><a href="{{ url_for('home.order_list') }}">My Order</a></li>
+                                        <li><a href="{{ url_for('home.shopping_cart') }}">Shopping cart</a></li>
+                                        <li><a href="{{ url_for('home.modify_password') }}">Change the password</a></li>
+                                        <li><a href="{{ url_for('home.logout') }}">Quit</a></li>
+                                    </ul>
+                                </div>
+                            {% else %}
+                                <div class="header-top-right">
+                                    <ul class="menu-top-menu text-md-right">
+
+                                        <li><a href="{{ url_for('home.login') }}">Login</a></li>
+                                        <li><a href="{{ url_for('home.register') }}">Register</a></li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-middle-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-4">
+                            <div class="header-logo">
+                                <a href="/"><img src="/static/home/img/logo/logo.png" alt=""></a>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-5 col-lg-3 col-md-10 order-md-4 order-lg-3">
+                            <div class="header-search-area">
+                                <form method="get" action="{{ url_for('home.goods_search') }}">
+                                    <div class="form-input">
+                                        <input name="keywords" id="search" placeholder="Search"
+
+                                               type="text">
+                                        <button type="submit" class="header-search-btn"><i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-bottom-area header-sticky">
+                <div class="header-boxshadow">
+                    <div class="container header-inner">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="logo-sticky">
+                                    <a href="/"><img src="static/home/img/logo/logo.png" alt=""></a>
+                                </div>
+                                <div class="header-menu text-center">
+                                    <nav>
+                                        <ul class="main-menu">
+                                            <li><a href="/">home</a></li>
+                                            {% for foo in session['menu'] %}
+                                                <li><a href="/goods_list/{{ foo.0 }}?type={{ foo.0 }}"> {{ foo.1 }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mobile-menu d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    {% block content %}
+
+
+    {% endblock %}
+
+
+    <div class="brand-area mt-110">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="brand-active">
+                        <!--Single Brand Start-->
+                        <div class="single-brand img-full">
+                            <a href="#"><img src="/static/home/img/brand/brand1.png" alt=""></a>
+                        </div>
+                        <!--Single Brand End-->
+                        <!--Single Brand Start-->
+                        <div class="single-brand img-full">
+                            <a href="#"><img src="/static/home/img/brand/brand2.png" alt=""></a>
+                        </div>
+                        <!--Single Brand End-->
+                        <!--Single Brand Start-->
+                        <div class="single-brand img-full">
+                            <a href="#"><img src="/static/home/img/brand/brand3.png" alt=""></a>
+                        </div>
+                        <!--Single Brand End-->
+                        <!--Single Brand Start-->
+                        <div class="single-brand img-full">
+                            <a href="#"><img src="/static/home/img/brand/brand4.png" alt=""></a>
+                        </div>
+                        <!--Single Brand End-->
+                        <!--Single Brand Start-->
+                        <div class="single-brand img-full">
+                            <a href="#"><img src="/static/home/img/brand/brand5.png" alt=""></a>
+                        </div>
+                        <!--Single Brand End-->
+                        <!--Single Brand Start-->
+                        <div class="single-brand img-full">
+                            <a href="#"><img src="/static/home/img/brand/brand3.png" alt=""></a>
+                        </div>
+                        <!--Single Brand End-->
+                        <!--Single Brand Start-->
+                        <div class="single-brand img-full">
+                            <a href="#"><img src="/static/home/img/brand/brand4.png" alt=""></a>
+                        </div>
+                        <!--Single Brand End-->
+                        <!--Single Brand Start-->
+                        <div class="single-brand img-full">
+                            <a href="#"><img src="/static/home/img/brand/brand5.png" alt=""></a>
+                        </div>
+                        <!--Single Brand End-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer>
+        <div class="footer-container">
+            <!--Footer Top Area Start-->
+            <div class="footer-top-area black-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <!--Single Footer Widget Start-->
+                            <div class="single-footer-widget mb-40">
+                                <div class="footer-title">
+                                    <h3>My Account</h3>
+                                </div>
+                                <ul class="link-widget">
+                                    <li><a href="">About Us</a></li>
+                                    <li><a href="#">Team Member</a></li>
+                                    <li><a href="#">Career</a></li>
+                                    <li><a href="#">Specials</a></li>
+                                    <li><a href="">Best sellers</a></li>
+                                    <li><a href="#">Our stores</a></li>
+                                    <li><a href="">Contact us</a></li>
+                                </ul>
+                            </div>
+                            <!--Single Footer Widget End-->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <!--Single Footer Widget Start-->
+                            <div class="single-footer-widget mb-40">
+                                <div class="footer-title">
+                                    <h3>Information</h3>
+                                </div>
+                                <ul class="link-widget">
+                                    <li><a href="">About Us</a></li>
+                                    <li><a href="">Contact Us</a></li>
+                                    <li><a href="#">My orders</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Returns & Exchanges</a></li>
+                                    <li><a href="#">Shipping & Delivery</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                            <!--Single Footer Widget End-->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <!--Single Footer Widget Start-->
+                            <div class="single-footer-widget mb-40">
+                                <div class="footer-title">
+                                    <h3>Quick Links</h3>
+                                </div>
+                                <ul class="link-widget">
+                                    <li><a href="#">Support Center</a></li>
+                                    <li><a href="#">Term & Conditions</a></li>
+                                    <li><a href="#">Shipping</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Help</a></li>
+                                    <li><a href="#">Products Return</a></li>
+                                    <li><a href="">FAQS</a></li>
+                                </ul>
+                            </div>
+                            <!--Single Footer Widget End-->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <!--Single Footer Widget Start-->
+                            <div class="single-footer-widget mb-40">
+                                <div class="footer-title">
+                                    <h3>Categories</h3>
+                                </div>
+                                <ul class="link-widget">
+                                    <li><a href="#">Bedroom</a></li>
+                                    <li><a href="#">Furniture</a></li>
+                                    <li><a href="#">Livingroom</a></li>
+                                    <li><a href="#">Mobiles & Tablets</a></li>
+                                    <li><a href="#">Men</a></li>
+                                    <li><a href="#">Women</a></li>
+                                    <li><a href="#">Accessories</a></li>
+                                </ul>
+                            </div>
+                            <!--Single Footer Widget End-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Footer Top Area End-->
+            <!--Footer Middle Area Start-->
+            <div class="footer-middle-area black-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <!--Single Footer Widget Start-->
+                            <div class="single-footer-widget mb-30">
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="static/home/img/logo/logo-footer.png" alt=""></a>
+                                </div>
+                            </div>
+                            <!--Single Footer Widget End-->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <!--Single Footer Widget Start-->
+                            <div class="single-footer-widget mb-30">
+                                <div class="footer-info">
+                                    <div class="icon">
+                                        <i class="fa fa-home"></i>
+                                    </div>
+                                    <p>Address : No 40 Baria Sreet 15/2 NewYork City, NY, United States.</p>
+                                </div>
+                            </div>
+                            <!--Single Footer Widget End-->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <!--Single Footer Widget Start-->
+                            <div class="single-footer-widget mb-30">
+                                <div class="footer-info">
+                                    <div class="icon">
+                                        <i class="fa fa-envelope-open-o"></i>
+                                    </div>
+                                    <p>Email: <br>info@yourmail.com</p>
+                                </div>
+                            </div>
+                            <!--Single Footer Widget End-->
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <!--Single Footer Widget Start-->
+                            <div class="single-footer-widget mb-30">
+                                <div class="footer-info">
+                                    <div class="icon">
+                                        <i class="fa fa-mobile"></i>
+                                    </div>
+                                    <p>Phone: <br>(+68) 123 456 7890</p>
+                                </div>
+                            </div>
+                            <!--Single Footer Widget End-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Footer Middle Area End-->
+            <!--Footer Bottom Area Start-->
+            <div class="footer-bottom-area black-bg pt-50 pb-50">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!--Footer Payment Start-->
+                            <div class="footer-payments-image">
+                                <img src="static/home/img/payment/payment-icon.png" alt="">
+                            </div>
+                            <!--Footer Payment End-->
+                            <!--Footer Menu Start-->
+                            <div class="footer-menu text-center">
+                                <nav>
+                                    <ul>
+                                        <li><a href="#">Site Map</a></li>
+                                        <li><a href="#">Search Terms</a></li>
+                                        <li><a href="#">Advanced Search</a></li>
+                                        <li><a href="#">Orders and Returns</a></li>
+                                        <li><a href="#">Contact Us</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--Footer Menu End-->
+                            <!--Footer Copyright Start-->
+                            <div class="footer-copyright">
+                                <p>Copyright © <a href="#">Plantmore</a> All Rights Reserved</p>
+                            </div>
+                            <!--Footer Copyright End-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Footer Bottom Area End-->
+        </div>
+    </footer>
+
+
+</div>
+
+{#<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>#}
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/popper.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/bootstrap.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/imagesloaded.pkgd.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/isotope.pkgd.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/waypoints.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery.counterup.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/owl.carousel.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/slick.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery.meanmenu.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/easyzoom.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery.nice-select.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery.scrollUp.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/wow.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/venobox.min.js') }}"></script>
+
+{#<script src="http://cdn.bootcss.com/jqueryui/1.11.0/jquery-ui.min.js"></script>#}
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery-ui.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery.countdown.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/plugins.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/main.js') }}"></script>
+
+{% block js %}
+
+
+
+{% endblock %}
+
+</body>
+</html>

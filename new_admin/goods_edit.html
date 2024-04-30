@@ -1,0 +1,163 @@
+{% extends "new_admin/layout.html" %}
+
+
+
+
+{% block content %}
+    <div>
+        <div class="row">
+            <div class="col-lg-6">
+                <h1>Add Goods</h1>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <form class="form-horizontal" method="post" enctype="multipart/form-data" autocomplete="off">
+                <div class="row">
+                    <div class="form-group col-lg-12">
+                        <label class="col-sm-2 control-label">good name</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="name" value="{{ data['name'] }}" class="form-control"
+                                   placeholder="good name">
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label class="col-sm-2 control-label">one category</label>
+                        <div class="col-sm-4">
+                            <select name="supercat" class="form-control" id="id_supercat">
+                                <option selected value="{{ data['supercat_id'] }}">{{ data['supercat_name'] }}</option>
+                                {% for foo in one %}
+                                    <option value="{{ foo.id }}">{{ foo.cat_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <label class="col-sm-2 control-label">two category</label>
+                        <div class="col-sm-4">
+                            <select name="subcat" class="form-control" id="id_subcat">
+                                <option selected value="{{ data['subcat_id'] }}">{{ data['subcat_name'] }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label class="col-sm-2 control-label">good Image</label>
+                        <div class="col-sm-4">
+                            <div class="col-sm-10">
+                                <input type="file" name="picture" style="border:0 " class="form-control"
+                                       placeholder="good Image">
+                            </div>
+                            <div class="col-sm-2">
+                                <div style="margin-top: 5px">{{ data['picture'] }}</div>
+                            </div>
+                        </div>
+                        <label class="col-sm-2 control-label">good Price</label>
+                        <div class="col-sm-1">
+                            <input style="width: 100px" type="number" value="{{ data['original_price'] }}"
+                                   name="original_price" class="form-control"
+                                   placeholder="good Price">
+                        </div>
+                        <label style="margin-left: -50px" class="col-sm-2 control-label">good Price</label>
+                        <div class="col-sm-1">
+                            <input style="width: 100px" type="number" value="{{ data['current_price'] }}"
+                                   name="current_price" class="form-control"
+                                   placeholder="good current">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="col-sm-2 control-label">New</label>
+                        <div class="col-sm-offset-1 col-sm-3">
+                            <div style="margin-top: 8px">
+                                {% if data['is_new'] %}
+                                    <label>
+                                        <input checked type="radio" name="is_new" value="1">
+                                        yes
+                                    </label>
+                                    <label style="margin-left: 20px;">
+                                        <input type="radio" name="is_new" value="0">
+                                        no
+                                    </label>
+                                {% else %}
+
+                                    <label>
+                                        <input type="radio" name="is_new" value="1">
+                                        yes
+                                    </label>
+                                    <label style="margin-left: 20px;">
+                                        <input checked type="radio" name="is_new" value="0">
+                                        no
+                                    </label>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <label class="col-sm-2 control-label">Special</label>
+                        <div class="col-sm-offset-1 col-sm-3">
+                            <div style="margin-top: 8px">
+                                {% if data['is_sale'] %}
+                                    <label>
+                                        <input checked  type="radio" name="is_sale" value="1">
+                                        yes
+                                    </label>
+                                    <label style="margin-left: 20px;">
+                                        <input  type="radio" name="is_sale" value="0">
+                                        no
+                                    </label>
+                                {% else %}
+                                    <label>
+                                        <input  type="radio" name="is_sale" value="1">
+                                        yes
+                                    </label>
+                                    <label style="margin-left: 20px;">
+                                        <input checked  type="radio" name="is_sale" value="0">
+                                        no
+                                    </label>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="col-sm-2 control-label">goos info </label>
+                        <div class="col-sm-9" style="margin-top: 5px;">
+                            <textarea class="form-control" name="introduction"
+                                      rows="8">{{ data['introduction'] }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <button class="btn btn-success" onClick="history.back(-1);"  style="margin-top: 20px;">back</button>
+                    <button type="submit" class="btn btn-success" style="margin-top: 20px;">
+                        Edit
+                    </button>
+                    <span style="color: red">{{ all_erorr }}</span>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        $(function () {
+            GetInfoEvent();
+        })
+
+        function GetInfoEvent() {
+            $("#id_supercat ").change(function () {
+                $("#id_subcat").empty().append("<option value=''>请选择分类</option>");
+                $.ajax({
+                    url: '/admin/get/two/',
+                    type: 'GET',
+                    data: {'info': $("#id_supercat option:selected").val()}
+                }).done(function (data) {
+                    console.log(111, data.cities[1][0])
+                    for (var i = 0, len = data.cities.length; i < len; i++) {
+                        $new = $("<option value=" + data.cities[i][0] + '>' + data.cities[i][1] + "</option>");
+                        $("#id_subcat").append($new);
+                    }
+                });
+            })
+        }
+    </script>
+
+{% endblock %}

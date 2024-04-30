@@ -1,0 +1,185 @@
+{% extends "home/layout.html" %}
+
+{% block css %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="breadcrumb-one mb-120">
+
+    </div>
+    <div class="single-product-area mb-115">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-5">
+                    <div class="product-details-img-tab">
+                        <!--Product Tab Content Start-->
+                        <div class="tab-content single-product-img">
+                            <div class="tab-pane fade show active" id="product1">
+                                <div class="product-large-thumb img-full">
+                                    <div class="easyzoom easyzoom--overlay is-ready">
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}">
+                                            <img src="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                                 alt="">
+                                        </a>
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                           class="popup-img venobox vbox-item" data-gall="myGallery"><i
+                                                class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="product2">
+                                <div class="product-large-thumb img-full">
+                                    <div class="easyzoom easyzoom--overlay">
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}">
+                                            <img src="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                                 alt="">
+                                        </a>
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                           class="popup-img venobox vbox-item" data-gall="myGallery"><i
+                                                class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="product3">
+                                <div class="product-large-thumb img-full">
+                                    <div class="easyzoom easyzoom--overlay">
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}">
+                                            <img src="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                                 alt="">
+                                        </a>
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                           class="popup-img venobox vbox-item" data-gall="myGallery"><i
+                                                class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="product4">
+                                <div class="product-large-thumb img-full">
+                                    <div class="easyzoom easyzoom--overlay">
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}">
+                                            <img src="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                                 alt="">
+                                        </a>
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                           class="popup-img venobox vbox-item" data-gall="myGallery"><i
+                                                class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="product5">
+                                <div class="product-large-thumb img-full">
+                                    <div class="easyzoom easyzoom--overlay">
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}">
+                                            <img src="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                                 alt="">
+                                        </a>
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                           class="popup-img venobox vbox-item" data-gall="myGallery"><i
+                                                class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="product6">
+                                <div class="product-large-thumb img-full">
+                                    <div class="easyzoom easyzoom--overlay">
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}">
+                                            <img src="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                                 alt="">
+                                        </a>
+                                        <a href="{{ url_for('static',filename='images/goods/'+goods.picture) }}"
+                                           class="popup-img venobox vbox-item" data-gall="myGallery"><i
+                                                class="fa fa-search"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-7">
+                    <div class="product-details-content">
+                        <div class="product-nav">
+                            <a href="#"><i class="fa fa-angle-left"></i></a>
+                            <a href="#"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                        <h2>{{ goods.name }}</h2>
+                        <div class="single-product-reviews">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="single-product-price">
+                            <span class="price new-price">${{ goods.current_price }}</span>
+                            <span class="regular-price">${{ goods.original_price }}</span>
+                        </div>
+                        <div class="product-description">
+                            <p>
+                                {{ goods.introduction }}
+                            </p>
+                        </div>
+                        <p class="stock in-stock">150 in stock</p>
+                        <div class="single-product-quantity">
+
+                            <div class="product-quantity">
+                                <input value="1" type="number"  size="2" id="shuliang">
+                            </div>
+                            <div class="add-to-link">
+                                <button type="button" class="product-btn" onclick="addCart()" data-text="add to cart">add to cart</button>
+                            </div>
+
+                        </div>
+                        <div class="wishlist-compare-btn">
+                            <a href="#" class="wishlist-btn">Add to Wishlist</a>
+                            <a href="#" class="add-compare">Compare</a>
+                        </div>
+                        <div class="product-meta">
+                                <span class="posted-in">
+                                        Categories:
+		                                <a href="#">Accessories</a>,
+		                                <a href="#">Electronics</a>
+		                            </span>
+                        </div>
+                        <div class="single-product-sharing">
+                            <h3>Share this product</h3>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        function addCart() {
+            var user_id = {{ user_id }}; //获取当前用户的id
+            var goods_id =
+            {{ goods.id }}
+            if (!user_id) {
+                window.location.href = "/login/"; //如果没有登录，跳转到登录页
+                return;
+            }
+            var number = $('#shuliang').val();//获取输入的商品数量
+            //验证输入的数量是否合法
+            if (number < 1) {//如果输入的数量不合法
+                alert('数量不能小于1！');
+                return;
+            }
+            window.location.href = '/cart_add?goods_id=' + goods_id + "&number=" + number
+        }
+    </script>
+
+
+{% endblock %}
